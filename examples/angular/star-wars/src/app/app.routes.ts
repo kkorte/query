@@ -12,7 +12,7 @@ export const appRoutes: Array<Route> = [
         loadComponent: () => import('./films.component').then(c => c.FilmsComponent),
     },
     {
-        path: 'films/:id',
+        path: 'films/:filmId',
         pathMatch: 'full',
         loadComponent: () => import('./film.component').then(c => c.FilmComponent),
     },
@@ -22,7 +22,7 @@ export const appRoutes: Array<Route> = [
         loadComponent: () => import('./characters.component').then(c => c.CharactersComponent),
     },
     {
-        path: 'characters/:id',
+        path: 'characters/:characterId',
         pathMatch: 'full',
         loadComponent: () => import('./character.component').then(c => c.CharacterComponent),
     },
