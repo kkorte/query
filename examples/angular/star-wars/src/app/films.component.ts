@@ -14,7 +14,7 @@ import { StarWarsService } from './star-wars.service';
       } @else {
         <h1 class="mat-headline-2">Films</h1>
         <mat-nav-list>
-        @for (film of query().data!.results; track film.film_id) {
+        @for (film of query().data; track film.film_id) {
             <a mat-list-item [routerLink]="['/films', film.film_id]">
               {{ film.episode_id }}. {{ film.title }}
               <em>({{ film.release_date | date:'YYYY' }})</em>

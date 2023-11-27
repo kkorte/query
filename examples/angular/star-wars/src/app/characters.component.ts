@@ -12,7 +12,7 @@ import { StarWarsService } from './star-wars.service';
         } @else {
             <h1 class="mat-headline-2">Characters</h1>
             <mat-nav-list>
-            @for (character of query().data!.results; track character.character_id) {
+            @for (character of query().data; track character.character_id) {
                 <a mat-list-item [routerLink]="['/characters', character.character_id]">
                     {{ character.name }}
                 </a>

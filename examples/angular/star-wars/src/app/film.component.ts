@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop'
 import { MatListModule } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import { StarWarsService } from './star-wars.service';
 import { CharacterListItemComponent } from './character-list-item.component';
 
@@ -29,8 +31,7 @@ import { CharacterListItemComponent } from './character-list-item.component';
 })
 export class FilmComponent {
   #service = inject(StarWarsService);
-  #activatedRoute = inject(ActivatedRoute);
-  #filmIdSignal = signal(this.#activatedRoute.snapshot.paramMap.get('filmId'));
+  #filmId = signal(inject(ActivatedRoute).snapshot.paramMap.get('filmId'));
 
-  query = this.#service.getFilmById(this.#filmIdSignal);
+  query = this.#service.getFilmById(this.#filmId);
 }

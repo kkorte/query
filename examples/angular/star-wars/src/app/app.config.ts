@@ -1,18 +1,22 @@
-import { provideHttpClient } from "@angular/common/http";
+import { HttpClient, provideHttpClient, withFetch } from "@angular/common/http";
+import { type ApplicationConfig, inject } from "@angular/core";
 import { provideRouter } from "@angular/router";
+import { lastValueFrom } from 'rxjs';
 import { QueryClient, provideAngularQuery } from "@tanstack/angular-query-experimental";
 import { appRoutes } from "./app.routes";
-import type { ApplicationConfig } from "@angular/core";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideAngularQuery(
       new QueryClient({
         defaultOptions: {
           queries: {
             gcTime: 1000 * 60 * 60 * 24, // 24 hours
+            queryFn: ({ queryKey }) => lastValueFrom(
+              inject(HttpClient).get(`https://swapi.dev/api/${queryKey.join('/')}/`)
+            )
           },
         },
       }),
