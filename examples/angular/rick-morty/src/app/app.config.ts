@@ -1,15 +1,17 @@
-import { provideHttpClient, withFetch } from "@angular/common/http";
-import { type ApplicationConfig } from "@angular/core";
-import { provideRouter } from "@angular/router";
-import { QueryClient, provideAngularQuery } from "@tanstack/angular-query-experimental";
-import { appRoutes } from "./app.routes";
+import { provideHttpClient, withFetch } from '@angular/common/http'
+import { provideRouter } from '@angular/router'
+import {
+  provideAngularQuery,
+  QueryClient,
+} from '@tanstack/angular-query-experimental'
+
+import { routes } from './app.routes'
+import type { ApplicationConfig } from '@angular/core'
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(appRoutes),
+    provideRouter(routes),
     provideHttpClient(withFetch()),
-    provideAngularQuery(
-      new QueryClient(),
-    ),
+    provideAngularQuery(new QueryClient()),
   ],
-};
+}

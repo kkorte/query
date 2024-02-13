@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatListModule } from '@angular/material/list';
-import { ActivatedRoute } from '@angular/router';
-import { injectQuery } from '@tanstack/angular-query-experimental';
-import { RickMortyService } from '../rick-morty.service';
-import { EpisodeListItemComponent } from '../episodes/episode-list-item.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core'
+import { MatTableModule } from '@angular/material/table'
+import { MatListModule } from '@angular/material/list'
+import { ActivatedRoute } from '@angular/router'
+import { injectQuery } from '@tanstack/angular-query-experimental'
+import { RickMortyService } from '../rick-morty.service'
+import { EpisodeListItemComponent } from '../episodes/episode-list-item.component'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +20,11 @@ import { EpisodeListItemComponent } from '../episodes/episode-list-item.componen
     } @else {
       <h1 class="mat-headline-2">{{ query.data()!.name }}</h1>
       <div class="table-container">
-        <table mat-table [dataSource]="query.data()!.features" class="mat-elevation-z8">
+        <table
+          mat-table
+          [dataSource]="query.data()!.features"
+          class="mat-elevation-z8"
+        >
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Feature</th>
             <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -27,7 +36,7 @@ import { EpisodeListItemComponent } from '../episodes/episode-list-item.componen
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </div>
       <h2 class="mat-headline-3">Episodes</h2>
@@ -40,20 +49,23 @@ import { EpisodeListItemComponent } from '../episodes/episode-list-item.componen
   `,
   standalone: true,
   imports: [MatTableModule, MatListModule, EpisodeListItemComponent],
-  styles: [`
-    .table-container {
-      max-width: 450px;
-    }
-  `]
+  styles: [
+    `
+      .table-container {
+        max-width: 450px;
+      }
+    `,
+  ],
 })
-
 export class CharacterComponent {
-  #service = inject(RickMortyService);
-  #activatedRoute = inject(ActivatedRoute);
-  #characterIdSignal = signal(this.#activatedRoute.snapshot.paramMap.get('id'));
+  #service = inject(RickMortyService)
+  #activatedRoute = inject(ActivatedRoute)
+  #characterIdSignal = signal(this.#activatedRoute.snapshot.paramMap.get('id'))
 
-  query = injectQuery(() => this.#service.getCharacterById(this.#characterIdSignal));
+  query = injectQuery(() =>
+    this.#service.getCharacterById(this.#characterIdSignal),
+  )
 
-  dataSource = [];
-  displayedColumns = ['name', 'value'];
+  dataSource = []
+  displayedColumns = ['name', 'value']
 }

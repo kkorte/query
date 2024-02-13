@@ -1,9 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { MatListModule } from '@angular/material/list';
-import { ActivatedRoute } from '@angular/router';
-import { injectQuery } from '@tanstack/angular-query-experimental';
-import { RickMortyService } from '../rick-morty.service';
-import { CharacterListItemComponent } from '../characters/character-list-item.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core'
+import { MatListModule } from '@angular/material/list'
+import { ActivatedRoute } from '@angular/router'
+import { injectQuery } from '@tanstack/angular-query-experimental'
+import { RickMortyService } from '../rick-morty.service'
+import { CharacterListItemComponent } from '../characters/character-list-item.component'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +21,7 @@ import { CharacterListItemComponent } from '../characters/character-list-item.co
       <p>
         {{ query.data()!.air_date }}
       </p>
-      
+
       <h2 class="mat-headline-3">Characters</h2>
       <mat-nav-list>
         @for (characterId of query.data()!.characters; track characterId) {
@@ -29,8 +34,8 @@ import { CharacterListItemComponent } from '../characters/character-list-item.co
   imports: [MatListModule, CharacterListItemComponent],
 })
 export class EpisodeComponent {
-  #service = inject(RickMortyService);
-  #id = signal(inject(ActivatedRoute).snapshot.paramMap.get('id'));
+  #service = inject(RickMortyService)
+  #id = signal(inject(ActivatedRoute).snapshot.paramMap.get('id'))
 
-  query = injectQuery(() => this.#service.getEpisodeById(this.#id));
+  query = injectQuery(() => this.#service.getEpisodeById(this.#id))
 }

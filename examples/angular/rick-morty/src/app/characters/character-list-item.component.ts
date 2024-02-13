@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, inject, signal } from "@angular/core";
-import { MatListModule } from "@angular/material/list";
-import { RouterLink } from "@angular/router";
-import { injectQuery } from "@tanstack/angular-query-experimental";
-import { RickMortyService } from "../rick-morty.service";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  inject,
+  signal,
+} from '@angular/core'
+import { MatListModule } from '@angular/material/list'
+import { RouterLink } from '@angular/router'
+import { injectQuery } from '@tanstack/angular-query-experimental'
+import { RickMortyService } from '../rick-morty.service'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,15 +21,15 @@ import { RickMortyService } from "../rick-morty.service";
     }
   `,
   standalone: true,
-  imports: [RouterLink, MatListModule]
+  imports: [RouterLink, MatListModule],
 })
 export class CharacterListItemComponent {
-  #service = inject(RickMortyService);
+  #service = inject(RickMortyService)
 
-  idSignal = signal<string | null>(null);
-  query = injectQuery(() => this.#service.getCharacterById(this.idSignal));
+  idSignal = signal<string | null>(null)
+  query = injectQuery(() => this.#service.getCharacterById(this.idSignal))
 
   @Input({ required: true }) set id(value: string) {
-    this.idSignal.set(value);
+    this.idSignal.set(value)
   }
 }
